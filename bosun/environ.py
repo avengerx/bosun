@@ -208,7 +208,7 @@ def _expand_config_vars(d, updates=None):
                         env_vars[k] = var
                 out = env_vars[k]
 
-            ret_value = rec_replace(env, ret_value.replace('${%s}' % k, out))
+            ret_value = rec_replace(env, ret_value.replace('${%s}' % k, str(out)))
 
         return ret_value
 
