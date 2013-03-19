@@ -271,31 +271,45 @@ Run Experiment from scratch
 
 
 In order to run a full model cycle, i.e. prepare (create all directories, and
-copy the necessary inputs to the right place), compile and run: $ bosun
-deploy_and_run:name=expnew The three tasks performed in deploy_and_run can also
-be achieved if the user runs the tasks: prepare, compilation, and run in this
-specific order. This will create directories in:
-/scratchin/grupos/ocean/home/${USER}/${EXP}/ containing source files for
+copy the necessary inputs to the right place), compile and run: 
+
+.. code-block:: bash
+
+  $ bosun deploy_and_run:name=expnew
+
+The three tasks performed in ``deploy_and_run`` can also
+be achieved if the user runs the ``tasks: prepare``, compilation, and run in this
+specific order. This will create directories in 
+``/scratchin/grupos/ocean/home/${USER}/${EXP}/`` containing source files for
 compilation, namelists, and executables for this specific experiment. It will
-also create directories in:
-/scratchout/grupos/ocean/home/${USER}/${EXP}/${TYPE}/ where ${TYPE} is the type
-of run: ocean model only (mom4p1_falsecoupled) or coupled ocean/atmosphere run
-(coupled). It contains the input, outputs, and restart files. If running a
-coupled run, the atmospheric outputs are located in:
-/scratchout/grupos/ocean/home/${USER}/${EXP}/coupled/model/dataout/TQ0062L028/
+also create directories in 
+``/scratchout/grupos/ocean/home/${USER}/${EXP}/${TYPE}/`` where ``${TYPE}`` is the type
+of run. Ocean model only (``mom4p1_falsecoupled``) or coupled ocean/atmosphere run
+(``coupled``). It contains the input, outputs, and restart files. If running a
+coupled run, the atmospheric outputs are located in 
+``/scratchout/grupos/ocean/home/${USER}/${EXP}/coupled/model/dataout/TQ0062L028/``
 
 Restart an experiment
 *********************
 
 Assuming you've successfully ran the model, you now have the model restart files
-written to your RESTART directory. For safety, rename the restart directory to
-save the data intact, before starting a new run: $ cp RESTART RESTART_yyyymmddhh
-In order to restart and existing experiment: $ bosun
-restart:name=expnew,restart=yyyymmddhh,finish=yyyymmddhh This task will check
-the current model time in /RESTART/coupler.res against the given date and return
-an error message if they do not match. Observation: If restarting again, don't
-forget to rename the newly formed RESTART directory if you plan to keep those
-files!
+written to your ``RESTART`` directory. For safety, rename the restart directory to
+save the data intact, before starting a new run: 
+
+.. code-block:: bash
+
+  $ cp RESTART RESTART_yyyymmddhh
+
+In order to restart and existing experiment: 
+
+.. code-block:: bash
+
+  $ bosun restart:name=expnew,restart=yyyymmddhh,finish=yyyymmddhh
+
+This task will check the current model time in ``/RESTART/coupler.res`` against
+the given date and return an error message if they do not match. Observation:
+If restarting again, don't forget to rename the newly formed RESTART directory
+if you plan to keep those files!
 
 
 Creating new grids
