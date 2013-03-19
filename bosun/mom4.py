@@ -294,7 +294,10 @@ def check_restart(environ, **kwargs):
         res_date, cmp_date = get_coupler_dates(environ)
 
         if res_date != cmp_date:
-            print(fc.red('ERROR'))
+            if 'cold' in environ['mode']:
+                print(fc.red("ERROR: requested to cold start model in '"+str(environ['start'])+"' but it is already partially run up to '"+str(res_date)+"'."))
+            else:
+                print(fc.red("ERROR: requested warm start model in '"+str(environ['restart'])+"' but it is already partially run up to '"+str(res_date)+"'. Did you mean to change namelist.yaml value to this?"))
             sys.exit(1)
     else:
         # TODO: check if it starts from zero (ocean forced)
